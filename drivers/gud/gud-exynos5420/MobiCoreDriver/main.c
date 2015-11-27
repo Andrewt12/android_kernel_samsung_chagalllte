@@ -862,8 +862,8 @@ static long mc_fd_admin_ioctl(struct file *file, unsigned int cmd,
 			return -EFAULT;
 
 		ctx.mcp = ctx.mci_base.addr + init.mcp_offset;
-		ret = mc_init((uint32_t)ctx.mci_base.phys, init.nq_offset,
-			init.nq_length, init.mcp_offset, init.mcp_length);
+		ret = mc_init((uint32_t)ctx.mci_base.phys, init.nq_length, 
+			      init.mcp_offset, init.mcp_length);
 		break;
 	}
 	case MC_IO_INFO: {
