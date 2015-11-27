@@ -244,13 +244,15 @@ int _nsiq(void)
 }
 
 /* Call the INIT fastcall to setup MobiCore initialization */
-int mc_init(uint32_t base, uint32_t nq_offset, uint32_t nq_length,
+int mc_init(uint32_t base, uint32_t nq_length,
 	uint32_t mcp_offset, uint32_t mcp_length)
 {
 	int ret = 0;
 	union mc_fc_init fc_init;
 
 	MCDRV_DBG_VERBOSE(mcd, "enter");
+        uint64_t base_addr = (uint64_t)base;
+        uint32_t base_high = (uint32_t)(base_addr >> 32);
 
 	memset(&fc_init, 0, sizeof(fc_init));
 
@@ -258,7 +260,8 @@ int mc_init(uint32_t base, uint32_t nq_offset, uint32_t nq_length,
 	/* base address of mci buffer 4KB aligned */
 	fc_init.as_in.base = base;
 	/* notification buffer start/length [16:16] [start, length] */
-	fc_init.as_in.nq_info = (nq_offset << 16) | (nq_length & 0xFFFF);
+        fc_init.as_in.nq_info = ((base_high && 0xFFFF) << 16) |
+                                (nq_length & 0xFFFF);
 	/* mcp buffer start/length [16:16] [start, length] */
 	fc_init.as_in.mcp_info = (mcp_offset << 16) | (mcp_length & 0xFFFF);
 

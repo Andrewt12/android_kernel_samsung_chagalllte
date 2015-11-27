@@ -51,6 +51,7 @@
  * INIT request data to SWD
  */
 struct mc_ioctl_init {
+        /* length of notification queue */
 	uint32_t  nq_length;
 	/* mcp buffer start/length [16:16] [start, length] */
 	uint32_t  mcp_offset;
@@ -63,9 +64,6 @@ struct mc_ioctl_init {
  * INFO request data to the SWD
  */
 struct mc_ioctl_info {
-	/* notification buffer start/length [16:16] [start, length] */
-	uint32_t  nq_offset;
-	/* length of notification queue */
 	uint32_t  ext_info_id;	/* extended info ID */
 	uint32_t  state;	/* state */
 	uint32_t  ext_info;	/* extended info */

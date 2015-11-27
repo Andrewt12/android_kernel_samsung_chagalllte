@@ -55,8 +55,6 @@
  * INIT request data to SWD
  */
 struct mc_ioctl_init {
-	/* notification buffer start/length [16:16] [start, length] */
-	uint32_t  nq_offset;
 	/* length of notification queue */
 	uint32_t  nq_length;
 	/* mcp buffer start/length [16:16] [start, length] */
@@ -88,8 +86,8 @@ struct mc_ioctl_info {
 struct mc_ioctl_map {
 	size_t	      len;	/* Buffer length */
 	uint32_t      handle;	/* WSM handle */
-	unsigned long addr;	/* Virtual address */
 	unsigned long phys_addr;/* physical address of WSM (or NULL) */
+	unsigned long addr;     /* Virtual address */
 	bool	      reused;	/* if WSM memory was reused, or new allocated */
 };
 
@@ -127,10 +125,10 @@ struct mc_ioctl_execute {
 struct mc_ioctl_resolv_cont_wsm {
 	/* driver handle for buffer */
 	uint32_t handle;
-	/* base address of memory */
-	uint32_t phys;
 	/* length memory */
 	uint32_t length;
+        /* base address of memory */
+        uint32_t phys;
 	/* fd to owner of the buffer */
 	int32_t fd;
 };
